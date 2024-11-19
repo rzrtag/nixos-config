@@ -1,16 +1,12 @@
-{ config, pkgs, ... }:
-
 {
-  imports = [
-    ../../home/hyprland.nix
-  ];
+  config,
+  pkgs,
+  ...
+}: {
+  home.username = "rzrtag";
+  home.homeDirectory = "/home/rzrtag";
 
-  home = {
-    username = "rzrtag";
-    homeDirectory = "/home/rzrtag";
-    stateVersion = "23.11";
-  };
-
+  home.stateVersion = "23.11";
   programs.home-manager.enable = true;
 
   home.packages = with pkgs; [
@@ -20,5 +16,22 @@
     btop
     ripgrep
     fd
+    zsh
+    starship
+    bat
+    exa
   ];
+
+  programs.zsh = {
+    enable = true;
+    ohMyZsh = {
+      enable = true;
+      plugins = ["git" "z" "sudo"];
+    };
+  };
+
+  programs.starship = {
+    enable = true;
+    promptOrder = ["username" "hostname" "directory" "git_branch" "git_status" "cmd_duration" "line_break" "jobs" "character"];
+  };
 }

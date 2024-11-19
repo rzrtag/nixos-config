@@ -1,14 +1,37 @@
-{ config, pkgs, ... }:
-
 {
-  wayland.windowManager.hyprland = {
+  config,
+  pkgs,
+  ...
+}: {
+  home.username = "rzrtag";
+  home.homeDirectory = "/home/rzrtag";
+
+  home.stateVersion = "23.11";
+  programs.home-manager.enable = true;
+
+  home.packages = with pkgs; [
+    git
+    neovim
+    htop
+    btop
+    ripgrep
+    fd
+    zsh
+    starship
+    bat
+    exa
+  ];
+
+  programs.zsh = {
     enable = true;
-    settings = {
-      monitor = "*,preferred,auto,1";
-      general = {
-        gaps_out = 0;
-        border_size = 3;
-      };
+    ohMyZsh = {
+      enable = true;
+      plugins = ["git" "z" "sudo"];
     };
+  };
+
+  programs.starship = {
+    enable = true;
+    promptOrder = ["username" "hostname" "directory" "git_branch" "git_status" "cmd_duration" "line_break" "jobs" "character"];
   };
 }

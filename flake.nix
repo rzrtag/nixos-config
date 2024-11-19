@@ -1,26 +1,25 @@
 {
-  description = "NixOS system configuration";
+  description = "Home Manager configuration";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { nixpkgs, home-manager, ... }: {
-    nixosConfigurations = {
-      fedora = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
+  outputs = {
+    self,
+    nixpkgs,
+    home-manager,
+    ...
+  }: {
+    homeConfigurations = {
+      rzrtag = home-manager.lib.homeManagerConfiguration {
+        pkgs = import nixpkgs {system = "x86_64-linux";};
         modules = [
-          ./modules/system
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.rzrtag = import ./modules/home;
-          }
+          ./modules/home/default.nix
         ];
       };
     };
