@@ -9,5 +9,20 @@
     };
   };
 
-  outputs = { nixpkgs, home-manager, ... }: {};
+  outputs = { nixpkgs, home-manager, ... }: {
+    nixosConfigurations = {
+      fedora = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          ./modules/system
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.rzrtag = import ./modules/home;
+          }
+        ];
+      };
+    };
+  };
 }
