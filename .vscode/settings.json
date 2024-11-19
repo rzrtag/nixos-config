@@ -1,0 +1,17 @@
+{
+    "files.associations": {
+        "*.nix": "nix"
+    },
+    "nix.enableLanguageServer": true,
+    "editor.formatOnSave": true,
+    "files.exclude": {
+        "**/.git": true,
+        "**/.direnv": true,
+        "result": true,
+        "result-*": true
+    },
+    "search.exclude": {
+        "**/result": true,
+        "**/result-*": true
+    }
+}
