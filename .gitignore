@@ -1,0 +1,5 @@
+result
+result-*
+.direnv
+.vscode
+*.code-workspace
